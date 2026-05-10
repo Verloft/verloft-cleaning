@@ -8,8 +8,166 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
-    <style>
+<!-- Vanilla Tilt -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
+<style>
+/* =========================
+PREMIUM EFFECTS
+========================= */
+
+body {
+    background:
+      radial-gradient(circle at top left, rgba(201,162,77,0.10), transparent 30%),
+      radial-gradient(circle at bottom right, rgba(74,31,47,0.25), transparent 35%),
+      #050505;
+}
+
+.noise {
+    position: fixed;
+    inset: 0;
+    background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.gradient-bg {
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(201,162,77,0.08), transparent 30%),
+      radial-gradient(circle at 80% 80%, rgba(255,255,255,0.03), transparent 30%);
+    filter: blur(80px);
+    animation: gradientMove 10s ease infinite alternate;
+    z-index: 0;
+}
+
+@keyframes gradientMove {
+    from {
+        transform: translateY(0px);
+    }
+
+    to {
+        transform: translateY(-30px);
+    }
+}
+
+
+.hero h1 {
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 1;
+    letter-spacing: -2px;
+    font-weight: 800;
+    text-shadow: 0 0 25px rgba(0,0,0,0.4);
+}
+
+.cta-button {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #C9A24D, #f1d189);
+    box-shadow:
+      0 0 25px rgba(201,162,77,0.2),
+      0 10px 30px rgba(0,0,0,0.3);
+}
+
+.cta-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      120deg,
+      transparent,
+      rgba(255,255,255,0.5),
+      transparent
+    );
+    transition: 0.8s;
+}
+
+.cta-button:hover::before {
+    left: 100%;
+}
+
+.model-card,
+.service-card,
+.zone-card,
+.faq-item,
+.cta-card {
+    backdrop-filter: blur(14px);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+      0 10px 40px rgba(0,0,0,0.25),
+      inset 0 1px 0 rgba(255,255,255,0.05);
+
+    transition:
+      transform 0.4s ease,
+      box-shadow 0.4s ease,
+      border-color 0.4s ease;
+}
+
+.model-card:hover,
+.service-card:hover,
+.zone-card:hover,
+.faq-item:hover {
+    transform: translateY(-10px) scale(1.02);
+
+    border-color: rgba(201,162,77,0.5);
+
+    box-shadow:
+      0 0 40px rgba(201,162,77,0.12),
+      0 25px 60px rgba(0,0,0,0.45);
+}
+
+.gallery-container {
+    border: 1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+      0 20px 80px rgba(0,0,0,0.45);
+}
+
+.gallery-slide img {
+    transition: transform 1.2s ease;
+}
+
+.gallery-slide:hover img {
+    transform: scale(1.06);
+}
+
+.navbar {
+    background: rgba(0,0,0,0.45);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.section-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: -1px;
+}
+
+.step-number {
+    box-shadow: 0 0 30px rgba(201,162,77,0.3);
+}
+
+@media (max-width: 768px) {
+    .custom-cursor {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 2.7rem;
+    }
+}
+
+
+   
         * {
             margin: 0;
             padding: 0;
@@ -179,23 +337,47 @@
             color: rgba(255, 255, 255, 0.9);
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: var(--gold);
-            color: var(--primary-dark);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            border-radius: var(--border-radius);
-            transition: all 0.3s;
-        }
+      .hero p {
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+}
 
-        .cta-button:hover {
-            background: var(--gold-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(201, 162, 77, 0.3);
-        }
+
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 16px 40px;
+
+    background: #C9A24D !important;
+    color: #000000 !important;
+
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+
+    border-radius: 12px;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    border: none;
+
+    position: relative;
+    z-index: 999;
+
+    transition: all .3s ease;
+}
+
+.cta-button:hover {
+    background: #d8b15c !important;
+    color: #000000 !important;
+    transform: translateY(-2px);
+}
 
         /* Section Styles */
         .section {
@@ -722,6 +904,12 @@
     </style>
 </head>
 <body>
+
+   <div class="noise"></div>
+<div class="gradient-bg"></div>
+<div id="particles"></div>
+
+
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="navbar-container">
@@ -750,7 +938,7 @@
     <div class="hero-content">
         <h1>LIMPIEZA PROFESIONAL PARA PROPIEDADES QUE EXIGEN EXCELENCIA</h1>
         <p>Especialistas en limpieza profesional para propiedades de alto estándar</p>
-        <a href="https://wa.me/18098755831" class="cta-button" target="_blank">Solicitar servicio</a>
+        <a href="https://wa.me/18094995831" class="cta-button" target="_blank">Solicitar servicio</a>
 
         <!-- Scroll Down Animation -->
         <div class="scroll-down">
@@ -919,7 +1107,9 @@
   <div class="cta-card" data-aos="fade-up">
     <h2>Maximiza tus ingresos con administración profesional</h2>
     <p>Con Verloft, tus propiedades se gestionan de manera integral: reservas, supervisión y tranquilidad total para ti.</p>
-    <a href="https://verloft.github.io/Verloft/" class="btn btn-primary">Conoce Verloft</a>
+    <a href="https://tuweb-verloft.com" class="btn-primary">
+    Conoce Verloft
+</a>
   </div>
 </section>
 
@@ -989,11 +1179,41 @@
 </section>
 
 
-    <!-- CTA Section -->
-    <section class="cta-section" id="contacto">
-        <h2>¿Listo para elevar el estándar de su propiedad?</h2>
-        <p>Solicite su primer servicio y experimente la diferencia Verloft Cleaning</p>
-        <a href="https://wa.me/18098755831" class="cta-button" target="_blank">Contactar ahora</a>
+  <!-- CTA Section -->
+<section class="cta-section" id="contacto">
+
+    <div style="
+        max-width:900px;
+        margin:0 auto;
+        text-align:center;
+        position:relative;
+        z-index:10;
+    ">
+
+        <h2>
+            ¿Listo para elevar el estándar de su propiedad?
+        </h2>
+
+        <p>
+            Solicite su primer servicio y experimente la diferencia Verloft Cleaning
+        </p>
+
+        <a href="https://wa.me/18098755831"
+           target="_blank"
+           class="cta-button"
+           style="
+              display:inline-block;
+              margin-top:25px;
+              position:relative;
+              z-index:20;
+           ">
+            Contactar ahora
+        </a>
+
+    </div>
+
+</section>
+</a>
     </section>
 
     <!-- Footer -->
@@ -1110,6 +1330,115 @@ hamburger.addEventListener('click', () => {
         });
 
         
-
         // Gallery slider
 
+        </script>
+
+<script>
+
+
+
+/* =========================
+GSAP
+========================= */
+
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.from('.hero h1', {
+    y: 80,
+    opacity: 0,
+    duration: 1.4,
+    ease: 'power4.out'
+});
+
+gsap.from('.hero p', {
+    y: 40,
+    opacity: 0,
+    duration: 1.2,
+    delay: 0.3,
+    ease: 'power3.out'
+});
+
+gsap.from('.cta-button', {
+    scale: 0.8,
+    opacity: 0,
+    duration: 1,
+    delay: 0.6,
+    ease: 'back.out(1.7)'
+});
+
+
+/* =========================
+3D CARDS
+========================= */
+
+VanillaTilt.init(document.querySelectorAll(
+'.model-card, .service-card, .zone-card'
+), {
+    max: 8,
+    speed: 400,
+    glare: true,
+    'max-glare': 0.2,
+    scale: 1.03
+});
+
+
+/* =========================
+PARALLAX HERO
+========================= */
+
+window.addEventListener('scroll', () => {
+
+    const scrolled = window.scrollY;
+
+    document.querySelector('.hero-video').style.transform =
+        `scale(1.1) translateY(${scrolled * 0.15}px)`;
+
+});
+
+
+/* =========================
+PARTICLES
+========================= */
+
+const particlesContainer = document.getElementById('particles');
+
+for (let i = 0; i < 40; i++) {
+
+    const particle = document.createElement('div');
+
+    particle.style.position = 'fixed';
+    particle.style.width = Math.random() * 3 + 'px';
+    particle.style.height = particle.style.width;
+
+    particle.style.background = 'rgba(201,162,77,0.18)';
+
+    particle.style.borderRadius = '50%';
+
+    particle.style.top = Math.random() * 100 + 'vh';
+    particle.style.left = Math.random() * 100 + 'vw';
+
+    particle.style.pointerEvents = 'none';
+    particle.style.zIndex = '0';
+
+    particlesContainer.appendChild(particle);
+
+    gsap.to(particle, {
+        y: -200,
+        duration: Math.random() * 10 + 10,
+        repeat: -1,
+        ease: 'none'
+    });
+
+    gsap.to(particle, {
+        opacity: 0.1,
+        duration: Math.random() * 3 + 2,
+        repeat: -1,
+        yoyo: true
+    });
+}
+
+</script>
+
+</body>
+</html>
